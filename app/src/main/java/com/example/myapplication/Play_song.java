@@ -56,7 +56,7 @@ public class Play_song extends AppCompatActivity {
         view.setText(songs.get(position[0]).getName());
         seekbar.setMax(mediaPlayer.getDuration());
 
-        // Update SeekBar in a separate thread
+
         updateseekbar = new Thread() {
             public void run() {
                 int currentposition;
@@ -88,7 +88,7 @@ public class Play_song extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        // Play/Pause Button Click Listener
+       
         play.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
                 play.setImageResource(R.drawable.play);
@@ -99,23 +99,23 @@ public class Play_song extends AppCompatActivity {
             }
         });
 
-        // Previous Button Click Listener
+       
         previous.setOnClickListener(v -> {
             changeSong(songs, position, -1, seekbar, view, play);
         });
 
-        // Next Button Click Listener
+      
         next.setOnClickListener(v -> {
             changeSong(songs, position, 1, seekbar, view, play);
         });
 
-        // Set OnCompletionListener to automatically go to the next song
+       
         mediaPlayer.setOnCompletionListener(mp -> {
             changeSong(songs, position, 1, seekbar, view, play);
         });
     }
 
-    // Helper function to change song
+    
     private void changeSong(ArrayList<File> songs, int[] position, int change, SeekBar seekbar, TextView view, ImageView play) {
         mediaPlayer.stop();
         mediaPlayer.release();
@@ -128,7 +128,7 @@ public class Play_song extends AppCompatActivity {
         seekbar.setMax(mediaPlayer.getDuration());
         view.setText(songs.get(position[0]).getName());
 
-        // Restart the SeekBar updater thread
+        
         updateseekbar = new Thread() {
             public void run() {
                 int currentposition;
@@ -144,7 +144,7 @@ public class Play_song extends AppCompatActivity {
         };
         updateseekbar.start();
 
-        // Set the listener again to move to the next song when the current song finishes
+        
         mediaPlayer.setOnCompletionListener(mp -> {
             changeSong(songs, position, 1, seekbar, view, play);
         });
